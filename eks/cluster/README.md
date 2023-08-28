@@ -16,3 +16,18 @@ eksctl create fargateprofile --cluster fg-eks-cluster --name fargate-profile-1 -
 
 eksctl get fargateprofile --cluster fg-eks-cluster
 
+-----Knative -----
+kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.11.0/serving-crds.yaml
+
+kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.11.0/serving-core.yaml
+
+kubectl apply -l knative.dev/crd-install=true -f https://github.com/knative/net-istio/releases/download/knative-v1.11.0/istio.yaml
+kubectl apply -f https://github.com/knative/net-istio/releases/download/knative-v1.11.0/istio.yaml
+
+kubectl apply -f https://github.com/knative/net-istio/releases/download/knative-v1.11.0/net-istio.yaml
+
+kubectl --namespace istio-system get service istio-ingressgateway
+
+
+kubectl get pods -n knative-serving
+

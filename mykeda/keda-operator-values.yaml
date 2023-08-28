@@ -1,0 +1,14 @@
+operator:
+  name: keda-operator
+podSecurityContext:
+  operator:
+    runAsNonRoot: true
+    runAsUser: 1001
+    runAsGroup: 1001
+    fsGroup: 1001
+serviceAccount:
+  create: true
+  name: keda-operator
+  automountServiceAccountToken: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::425364941712:role/keda-operator-role

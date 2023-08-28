@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello App</title>
+  </head>
+  <body>
+    <h1>Hello App</h1>
+    <form method="POST">
+      <input type="text" name="message" placeholder="Enter a message" />
+      <input type="submit" value="Post" />
+    </form>
+    <h2>Posted Messages:</h2>
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
