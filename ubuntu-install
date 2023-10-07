@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Update the package list and install necessary packages
+sudo apt update -y
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+
+# Install Docker
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo usermod -aG docker $USER
+
+
+# Install kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+
+# Install minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+# Install Kind
+curl -Lo kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
+chmod +x kind
+sudo mv kind /usr/local/bin/
+
+# Optional: Initialize a Kind cluster
+# You can uncomment and modify this section if you want to create a Kind cluster as well.
+# kind create cluster
+
+# Start Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Optional: Add the user to the docker group
+# You might need to log out and log in again for group membership to take effect.
+#sudo usermod -aG docker $USER
+
+# Optional: Disable swap to meet Kubernetes requirements (if needed)
+sudo swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+# Reboot the instance to apply changes
+#sudo reboot
+newgrp docker
